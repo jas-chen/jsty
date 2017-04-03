@@ -20,6 +20,13 @@
   "repository": "https://github.com/jas-chen/jsty.git",
   "author": "Jas Chen",
   "license": "MIT",
+  "keywords": [
+    "css-in-js"
+  ],
+  "bugs": {
+    "url": "https://github.com/jas-chen/jsty/issues"
+  },
+  "homepage": "https://github.com/jas-chen/jsty",
   "devDependencies": {
     "babel-cli": "^6.24.0",
     "babel-plugin-external-helpers": "^6.22.0",
