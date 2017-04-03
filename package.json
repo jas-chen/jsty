@@ -1,0 +1,33 @@
+{
+  "name": "jsty",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "files": [
+    "lib",
+    "es",
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "clean": "rm -rf lib es",
+    "build:commonjs": "BABEL_ENV=production babel src -d lib",
+    "build:es": "BABEL_ENV=es babel src -d es",
+    "build:dist": "BABEL_ENV=rollup rollup -c && BABEL_ENV=rollup rollup -c --environment PRODUCTION",
+    "build": "yarn run build:commonjs && yarn run build:es",
+    "prepublish": "yarn run clean && yarn test && yarn run build"
+  },
+  "repository": "https://github.com/jas-chen/jsty.git",
+  "author": "Jas Chen",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.3.2",
+    "fncss": "^0.4.0",
+    "rollup": "^0.41.6",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-replace": "^1.1.1",
+    "rollup-plugin-uglify": "^1.0.1"
+  }
+}

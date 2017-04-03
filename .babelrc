@@ -1,0 +1,42 @@
+{
+  "env": {
+    "test": {
+      "plugins": "transform-es2015-modules-commonjs"
+    },
+    "commonjs": {
+      "presets": [
+        ["env", {
+          "targets": {
+            "ie": 9
+          },
+          "loose": true
+        }]
+      ]
+    },
+    "es": {
+      "presets": [
+        ["env", {
+          "targets": {
+            "browsers": ">1%, last 3 versions, Firefox ESR, not ie < 9"
+          },
+          "loose": true,
+          "modules": false
+        }]
+      ]
+    },
+    "rollup": {
+      "presets": [
+        ["env", {
+          "targets": {
+            "browsers": ">1%, last 3 versions, Firefox ESR, not ie < 9"
+          },
+          "loose": true,
+          "modules": false
+        }]
+      ],
+      "plugins": [
+        "external-helpers"
+      ]
+    }
+  }
+}
