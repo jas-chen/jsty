@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "clean": "rm -rf lib es dist",
-    "build:commonjs": "BABEL_ENV=production babel src -d lib",
+    "build:commonjs": "BABEL_ENV=commonjs babel src -d lib",
     "build:es": "BABEL_ENV=es babel src -d es",
     "build:dist": "BABEL_ENV=rollup rollup -c && BABEL_ENV=rollup rollup -c --environment PRODUCTION",
     "build": "yarn run clean && yarn run build:commonjs && yarn run build:es && yarn run build:dist",
