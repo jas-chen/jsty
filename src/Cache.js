@@ -1,9 +1,9 @@
 import ClassNameGen from './ClassNameGen';
 
 export default class Cache {
-  constructor(cache = {}) {
+  constructor(cache = {}, lastClassName) {
     this.cache = cache;
-    this.classNameGen = new ClassNameGen();
+    this.classNameGen = new ClassNameGen(lastClassName);
   }
 
   get(decls) {

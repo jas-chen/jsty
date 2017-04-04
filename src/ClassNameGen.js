@@ -1,12 +1,13 @@
 export default class ClassNameGen {
-  constructor() {
-    this.count = parseInt('9', 36);
+  constructor(lastClassName = '9') {
+    this.count = parseInt(lastClassName, 36);
   }
 
   next() {
     this.count += 1;
     let className = this.count.toString(36);
 
+    // className can't start with number
     if (className.charAt(0) !== '1') {
       return className;
     }
