@@ -11,10 +11,10 @@ export default function createGetClassName({ calculateRule, mediaOrder, cache })
 
     if (result.hasOwnProperty('newDecls')) {
       for (const decl of (mediaOrder ? result.newDecls.sort(sortMedia) : result.newDecls)) {
-        const rule = calculateRule(decl.prop, decl.val);
+        const rule = calculateRule(decl.prop, decl.value);
         sheet.insert(
           media(decl),
-          `.${decl.className}${decl.sel || ''}`,
+          `.${decl.className}${decl.hasOwnProperty('sel') ? decl.sel : ''}`,
           rule
         );
       }
