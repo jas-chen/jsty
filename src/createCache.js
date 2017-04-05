@@ -1,12 +1,5 @@
-import ClassNameGen from './ClassNameGen';
-
-export default class Cache {
-  constructor(cache = {}, lastClassName) {
-    this.cache = cache;
-    this.classNameGen = new ClassNameGen(lastClassName);
-  }
-
-  get(decls) {
+export default function createCache(cache = {}, nextClassName) {
+  function get(decls) {
     if (decls.hasOwnProperty('className')) {
       return {
         className: decls.className
@@ -14,7 +7,7 @@ export default class Cache {
     }
 
     const classNames = [];
-    const newDecls = [];
+    let newDecls;
 
     for (const decl of decls) {
       let className;
@@ -23,7 +16,7 @@ export default class Cache {
         className = decl.className;
       } else {
         const { media = 'all', sel = '', prop, val } = decl;
-        className = this.cache;
+        className = cache;
 
         if (className.hasOwnProperty(media)) {
           className = className[media];
@@ -46,7 +39,12 @@ export default class Cache {
         if (className.hasOwnProperty(val)) {
           className = className[val];
         } else {
-          className = className[val] = this.classNameGen.next();
+          className = className[val] = nextClassName();
+
+          if (!newDecls) {
+            newDecls = [];
+          }
+
           newDecls.push(decl);
         }
 
@@ -63,10 +61,14 @@ export default class Cache {
       className
     };
 
-    if (newDecls.length) {
+    if (newDecls) {
       result.newDecls = newDecls;
     }
 
     return result;
   }
+
+  return {
+    get
+  };
 }

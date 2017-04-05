@@ -1,4 +1,4 @@
-function createStyle(media) {
+function createStyleTag(media) {
   const style = document.createElement('style');
   style.setAttribute("media", media);
 
@@ -9,7 +9,7 @@ function createStyle(media) {
   return style;
 }
 
-export default function createSheet() {
+export default function createStyleSheet() {
   const styles = {};
 
   return {
@@ -18,7 +18,7 @@ export default function createSheet() {
       if (styles.hasOwnProperty(media)) {
         style = styles[media];
       } else {
-        style = styles[media] = createStyle(media);
+        style = styles[media] = createStyleTag(media);
       }
 
       if (process.env.NODE_ENV !== 'production') {

@@ -2125,9 +2125,9 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
-fncss@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/fncss/-/fncss-0.4.0.tgz#15608b5093705fae794f96d1b11335c895fec044"
+fncss@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/fncss/-/fncss-0.5.1.tgz#9ddd85ceb60fc7e7400e5e7039b3d2dd1977aa19"
 
 for-in@^1.0.1:
   version "1.0.2"

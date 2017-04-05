@@ -1,7 +1,7 @@
-import createGetClassName from './createGetClassName';
-import createSheet from './createSheet';
+import createInsertCSS from './createInsertCSS';
+import createStyleSheet from './createStyleSheet';
 
 export {
-  createGetClassName,
-  createSheet
-}
+  createInsertCSS,
+  createStyleSheet
+};
