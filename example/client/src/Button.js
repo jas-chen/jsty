@@ -10,6 +10,6 @@ const style = decl(
   )
 );
 
-const Button = styled(style, 'button');
+const Button = styled(style)('button');
 
 export default Button;

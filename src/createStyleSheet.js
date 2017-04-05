@@ -9,16 +9,20 @@ function createStyleTag(media) {
   return style;
 }
 
-export default function createStyleSheet() {
-  const styles = {};
+export default function createStyleSheet(selector = 'style') {
+  const styleTags = {};
+
+  for (const styleTag of document.querySelectorAll(selector)) {
+    styleTags[styleTag.media || 'all'] = styleTag;
+  }
 
   return {
     insert(media, sel, rule) {
       let style;
-      if (styles.hasOwnProperty(media)) {
-        style = styles[media];
+      if (styleTags.hasOwnProperty(media)) {
+        style = styleTags[media];
       } else {
-        style = styles[media] = createStyleTag(media);
+        style = styleTags[media] = createStyleTag(media);
       }
 
       if (process.env.NODE_ENV !== 'production') {

@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import { createInsertCSS, createStyleSheet } from 'jsty';
 import { phone, pad } from './mediaQuery';
 import { Provider } from './react-utils';
+import App from './App';
 
 const insertCSS = createInsertCSS({
     mediaOrder: [
