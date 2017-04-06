@@ -11,15 +11,12 @@ function createStyleTag(media) {
 
 export default function createStyleSheet(opts = {}) {
   const {
-    sheets = {},
-    onInsert
+    sheets = {}
   } = opts;
 
   function insert(media, sel, rule) {
     const isAtRule = sel.length && sel.charAt(0) === '@';
     let styleTag;
-
-    onInsert && onInsert(media, sel, rule);
 
     if (sheets.hasOwnProperty(media)) {
       styleTag = sheets[media];

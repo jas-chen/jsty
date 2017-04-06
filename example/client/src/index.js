@@ -13,13 +13,7 @@ const insertCSS = createInsertCSS({
     ]
 });
 
-const styleSheet = createStyleSheet({
-  // show log in console
-  onInsert(media, sel, rule) {
-    rule = sel.charAt(0) === '@' ? '' : `{ ${rule} }`;
-    console.info(`Inserting CSS rule:\n@media ${media} {\n  ${sel} ${rule}\n}`);
-  }
-});
+const styleSheet = createStyleSheet();
 
 
 // Insert some global css, yeah!

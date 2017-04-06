@@ -1,13 +1,10 @@
 export default function createServerSheet(opts = {}) {
   const {
-    sheets = {},
-    onInsert
+    sheets = {}
   } = opts;
 
   function insert(media, sel, rule) {
     const isAtRule = sel.length && sel.charAt(0) === '@';
-
-    onInsert && onInsert(media, sel, rule);
 
     if (sheets.hasOwnProperty(media)) {
       if (isAtRule) {
