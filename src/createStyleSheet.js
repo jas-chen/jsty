@@ -42,6 +42,7 @@ export default function createStyleSheet(opts = {}) {
   }
 
   return {
-    insert
+    insert,
+    _sheets: sheets // for test only
   };
 }
