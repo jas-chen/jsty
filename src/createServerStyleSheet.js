@@ -1,12 +1,26 @@
-export default function createServerSheet() {
-  const sheets = {};
+export default function createServerSheet(opts = {}) {
+  const {
+    sheets = {},
+    onInsert
+  } = opts;
 
   function insert(media, sel, rule) {
-    const value = `${sel}\t{\t${rule}}\n`;
+    const isAtRule = sel.length && sel.charAt(0) === '@';
+
+    onInsert && onInsert(media, sel, rule);
+
     if (sheets.hasOwnProperty(media)) {
-      sheets[media] += value;
+      if (isAtRule) {
+        sheets[media] = `${sel}${sheets[media]}`;
+      } else {
+        sheets[media] += `${sel}{${rule}}`;
+      }
     } else {
-      sheets[media] = value;
+      if (isAtRule) {
+        sheets[media] = `${sel}`;
+      } else {
+        sheets[media] = `${sel}{${rule}}`;
+      }
     }
   }
 

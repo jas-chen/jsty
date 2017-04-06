@@ -5,7 +5,7 @@ export default function createClassNameGen(lastClassName = '9') {
     count += 1;
     let className = count.toString(36);
 
-    // className can't start with number
+    // ensure className not starting with number
     if (className.charAt(0) !== '1') {
       return className;
     }

@@ -9,32 +9,42 @@ function createStyleTag(media) {
   return style;
 }
 
-export default function createStyleSheet(selector = 'style') {
-  const styleTags = {};
+export default function createStyleSheet(opts = {}) {
+  const {
+    sheets = {},
+    onInsert
+  } = opts;
 
-  for (const styleTag of document.querySelectorAll(selector)) {
-    styleTags[styleTag.media || 'all'] = styleTag;
+  function insert(media, sel, rule) {
+    const isAtRule = sel.length && sel.charAt(0) === '@';
+    let styleTag;
+
+    onInsert && onInsert(media, sel, rule);
+
+    if (sheets.hasOwnProperty(media)) {
+      styleTag = sheets[media];
+    } else {
+      styleTag = createStyleTag(media);
+      sheets[media] = styleTag;
+    }
+
+    if (process.env.NODE_ENV !== 'production') {
+      if (isAtRule) {
+        styleTag.insertBefore(document.createTextNode(sel), styleTag.firstChild);
+      } else {
+        styleTag.appendChild(document.createTextNode(`${sel}{${rule}}`));
+      }
+    } else {
+      if (isAtRule) {
+        styleTag.sheet.insertRule(sel, 0);
+      } else {
+        const { sheet } = styleTag;
+        sheet.insertRule(`${sel}{${rule}}`, sheet.cssRules.length);
+      }
+    }
   }
 
   return {
-    insert(media, sel, rule) {
-      let style;
-      if (styleTags.hasOwnProperty(media)) {
-        style = styleTags[media];
-      } else {
-        style = styleTags[media] = createStyleTag(media);
-      }
-
-      if (process.env.NODE_ENV !== 'production') {
-        style.appendChild(document.createTextNode(`${sel}{${rule}}`));
-      } else {
-        const { sheet } = style;
-        if ('insertRule' in sheet) {
-          sheet.insertRule(`${sel}{${rule}}`);
-        } else {
-          sheet.addRule(sel, rule);
-        }
-      }
-    }
+    insert
   };
 }
