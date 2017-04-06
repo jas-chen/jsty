@@ -29,6 +29,12 @@ export default function createInsertCSS(opts = defaultOpts) {
         for (const decl of (mediaOrder.length > 1 ? result.newDecls.sort(sortMedia) : result.newDecls)) {
           const rule = calculateRule(decl.prop, decl.value);
 
+          if (process.env.NODE_ENV !== 'production') {
+            if (typeof rule !== 'string') {
+              throw new TypeError(`Expected \`calculateRule()\` to return a string. It returned ${rule}.`);
+            }
+          }
+
           styleSheet.insert(
             getMedia(decl),
             `.${decl.className}${decl.hasOwnProperty('sel') ? decl.sel : ''}`,
