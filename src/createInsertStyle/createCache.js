@@ -1,5 +1,24 @@
 export default function createCache(nextClassName, cache = {}) {
-  function get(decls) {
+  function setAtRuleName(type, name) {
+    let entry = cache[type];
+    if (!entry) {
+      entry = cache[type] = {};
+    }
+
+    entry[name] = true;
+  }
+
+  function getAtRuleName(type, name) {
+    let entry = cache[type];
+    if (!entry) {
+      entry = cache[type] = {};
+      return false;
+    }
+
+    return entry.hasOwnProperty(name);
+  }
+
+  function getClassName(decls) {
     if (decls.hasOwnProperty('className')) {
       return {
         className: decls.className
@@ -12,7 +31,7 @@ export default function createCache(nextClassName, cache = {}) {
     for (let i = 0 ; i < decls.length ; i += 1) {
       const decl = decls[i];
       if (!decl.hasOwnProperty('className')) {
-        const { media = 'all', sel = '', prop, val } = decl;
+        const { media = 'all', sel = '', prop, value } = decl;
         let entry = cache[media];
 
         if (!entry) {
@@ -31,10 +50,10 @@ export default function createCache(nextClassName, cache = {}) {
           entry = entry[sel] = {};
         }
 
-        if (entry.hasOwnProperty(val)) {
-          decl.className = entry[val];
+        if (entry.hasOwnProperty(value)) {
+          decl.className = entry[value];
         } else {
-          decl.className = entry[val] = nextClassName();
+          decl.className = entry[value] = nextClassName();
 
           if (!newDecls) {
             newDecls = [];
@@ -62,6 +81,8 @@ export default function createCache(nextClassName, cache = {}) {
   }
 
   return {
-    get
+    setAtRuleName,
+    getAtRuleName,
+    getClassName
   };
 }

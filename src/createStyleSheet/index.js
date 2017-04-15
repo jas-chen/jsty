@@ -23,13 +23,13 @@ export default function createStyleSheet(opts = {}) {
 
   function insertAtRule(rule) {
     const styleTag = getStyleTag('all');
-    const cssText = rule.cssText();
+    const cssText = typeof rule === 'string' ? rule : rule.cssText();
 
     try {
-      sheet.insertRule(cssText, 0);
+      styleTag.sheet.insertRule(cssText, 0);
     } catch(e) {
       if (process.env.NODE_ENV !== 'production') {
-        console.warn(`Failed to insert at-rule:\n${cssText}.`);
+        console.warn(`Failed to insert at-rule:\n\`${cssText}\`.`);
       }
     }
   }

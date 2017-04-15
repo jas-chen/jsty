@@ -17,11 +17,12 @@ export default function createInsertStyle(opts = {}) {
     }
   }
 
-  const cache = createCache(createClassNameGen(lastClassName), cacheFromServer);
+  const nextClassName = createClassNameGen(lastClassName);
+  const cache = createCache(nextClassName, cacheFromServer);
   const sortMedia = (d1, d2) => mediaOrder.indexOf(getMedia(d1)) - mediaOrder.indexOf(getMedia(d2));
 
   return function insertStyle(decls) {
-    const result = cache.get(decls);
+    const result = cache.getClassName(decls);
 
     if (result.hasOwnProperty('newDecls')) {
       const orderedDecls = (mediaOrder.length > 1 ? result.newDecls.sort(sortMedia) : result.newDecls);
@@ -30,9 +31,16 @@ export default function createInsertStyle(opts = {}) {
         let { value } = decl;
 
         // FontFace or Keyframes
-        if (value.hasOwnProperty('cssText')) {
-          styleSheet.insertAtRule(value);
-          value = value.toString();
+        if (value['cssText']) {
+          const { type } = value;
+          const name = value.toString();
+
+          if (!cache.getAtRuleName(type, name)) {
+            styleSheet.insertAtRule(value);
+            cache.setAtRuleName(type, name);
+          }
+
+          value = name;
         }
 
         styleSheet.insertRule(

@@ -3,6 +3,9 @@ export default function FontFace(style) {
 }
 
 FontFace.prototype = {
+  get type() {
+    return '@FontFace';
+  },
   toString() {
     return this.style['font-family'];
   },

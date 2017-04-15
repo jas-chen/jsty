@@ -4,6 +4,9 @@ export default function Keyframes(name, keyframes) {
 }
 
 Keyframes.prototype = {
+  get type() {
+    return '@Keyframes';
+  },
   toString() {
     return this.name;
   },
@@ -13,8 +16,9 @@ Keyframes.prototype = {
     Object.keys(this.keyframes).forEach(key => {
       let cssText = '';
 
-      this.keyframes[key].forEach(decl => {
-        cssText += `${decl.prop}:${decl.value}`;
+      const props = this.keyframes[key];
+      Object.keys(props).forEach(prop => {
+        cssText += `${prop}:${props[prop]}`;
       });
 
       text += `${key}{${cssText}}`;
