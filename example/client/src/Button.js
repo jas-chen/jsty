@@ -1,12 +1,12 @@
-import { prop as p, sel as s, decl } from 'fncss';
+import { prop as p, sel as s, style as createStyle} from 'jsty';
 import { styled } from './react-utils';
 
-const style = decl(
-  p.backgroundColor('#fff'),
-  p.border('1px solid #ddd'),
-  s.hover(
-    p.backgroundColor('#eee'),
-    p.cursor('pointer')
+const style = createStyle(
+  p('background-color')('#fff'),
+  p('border')('1px solid #ddd'),
+  s('&:hover')(
+    p('background-color')('#eee'),
+    p('cursor')('pointer')
   )
 );
 

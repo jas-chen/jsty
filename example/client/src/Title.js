@@ -1,16 +1,17 @@
-import { prop as p, decl } from 'fncss';
+import { prop as p, style as createStyle } from 'jsty';
 import { pad, phone } from './mediaQuery';
 import { styled } from './react-utils';
 
-const style = decl(
-  p.color('blue'),
+const style = createStyle(
+  p('color')('blue'),
+  p('user-select')('none'),
 
   pad(
-    p.color('orange')
+    p('color')('orange')
   ),
 
   phone(
-    p.color('brown')
+    p('color')('brown')
   )
 );
 

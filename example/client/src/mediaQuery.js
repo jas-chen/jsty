@@ -1,4 +1,4 @@
-import { media } from 'fncss';
+import { media } from 'jsty';
 
 const createMedia = query => {
   const m = media(query);
