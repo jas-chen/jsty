@@ -1,4 +1,3 @@
-import FontFace from './style/FontFace';
 import Keyframes from './style/Keyframes';
 import prop from './style/prop';
 import sel from './style/sel';
@@ -9,7 +8,6 @@ import createStyleSheet from './createStyleSheet/index';
 import Prefixer from './prefixer/index';
 
 export {
-  FontFace,
   Keyframes,
   prop,
   sel,
