@@ -1,12 +1,10 @@
-import { prop as p, sel as s, style as createStyle} from 'jsty';
+import { prop as p, sel as s } from 'jsty';
 import { styled } from './react-utils';
 
-const style = createStyle(
+const Input = styled(
   s('&::placeholder')(
     p('color')('pink')
   )
-);
-
-const Input = styled(style)('input');
+)('input');
 
 export default Input;

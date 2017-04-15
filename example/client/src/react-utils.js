@@ -1,4 +1,5 @@
 import React, { PropTypes, Children } from 'react';
+import { style as createStyle } from 'jsty';
 
 // property name in context
 const CSS = 'css';
@@ -20,7 +21,9 @@ Provider.propTypes = contextPropTypes;
 Provider.childContextTypes = contextPropTypes;
 
 
-export function styled(decls) {
+export function styled() {
+  const decls = createStyle.apply(null, arguments);
+
   return function attachStyle(Component) {
     class StyledComponent extends React.PureComponent {
       render() {

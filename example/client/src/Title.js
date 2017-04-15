@@ -1,8 +1,8 @@
-import { prop as p, style as createStyle } from 'jsty';
+import { prop as p } from 'jsty';
 import { pad, phone } from './mediaQuery';
 import { styled } from './react-utils';
 
-const style = createStyle(
+const Title = styled(
   p('color')('blue'),
   p('user-select')('none'),
 
@@ -13,8 +13,6 @@ const style = createStyle(
   phone(
     p('color')('brown')
   )
-);
-
-const Title = styled(style)('h1');
+)('h1');
 
 export default Title;
