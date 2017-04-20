@@ -1,5 +1,5 @@
 import cachedFn from '../utils/cachedFn';
-import assignDecl from '../utils/assignDecl';
+import assignDecl from './assignDecl';
 
 function assignSel(decl, sel) {
   if (!decl.sel) {
@@ -9,14 +9,8 @@ function assignSel(decl, sel) {
   }
 }
 
-const createSel = sel => function() {
-  if (process.env.NODE_ENV !== 'production') {
-    if (sel.indexOf('&') === -1) {
-      throw new Error('Selector must contain `&`, e.g. `&:hover`.');
-    }
-  }
-
-  return assignDecl(arguments, sel, assignSel);
+const sel = selectorText => function() {
+  return assignDecl(arguments, selectorText, assignSel);
 }
 
-export default cachedFn(createSel);
+export default cachedFn(sel);

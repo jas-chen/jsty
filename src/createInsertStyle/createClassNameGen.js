@@ -1,5 +1,5 @@
-export default function createClassNameGen(lastClassName = '9') {
-  let count = parseInt(lastClassName, 36);
+export default function createClassNameGen() {
+  let count = parseInt('9', 36); // we want first className to be `a`
 
   return function nextClassName() {
     count += 1;

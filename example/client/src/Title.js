@@ -1,17 +1,19 @@
-import { prop as p } from 'jsty';
+import { d } from 'jsty';
 import { pad, phone } from './mediaQuery';
 import { styled } from './react-utils';
 
 const Title = styled(
-  p('color')('blue'),
-  p('user-select')('none'),
+  d({
+    color: 'blue',
+    userSelect: 'none'
+  }),
 
   pad(
-    p('color')('orange')
+    d({ color: 'orange' })
   ),
 
   phone(
-    p('color')('brown')
+    d({ color: 'brown' })
   )
 )('h1');
 

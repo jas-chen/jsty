@@ -5,10 +5,7 @@ export default function Keyframes(name, keyframes) {
 
 Keyframes.prototype = {
   get type() {
-    return '@Keyframes';
-  },
-  toString() {
-    return this.name;
+    return '@keyframes';
   },
  	cssText() {
     let text = '';

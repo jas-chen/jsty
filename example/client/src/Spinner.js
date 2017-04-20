@@ -1,4 +1,4 @@
-import { prop as p, Keyframes } from 'jsty';
+import { d, Keyframes } from 'jsty';
 import { styled } from './react-utils';
 
 const spinnerAnimation = new Keyframes('spinner', {
@@ -11,11 +11,13 @@ const spinnerAnimation = new Keyframes('spinner', {
 });
 
 const Spinner = styled(
-  p('display')('inline-block'),
-  p('animation-name')(spinnerAnimation),
-  p('animation-duration')('2s'),
-  p('animation-timing-function')('linear'),
-  p('animation-iteration-count')('infinite'),
+  d({
+    display: 'inline-block',
+    animationName: spinnerAnimation,
+    animationDuration: '2s',
+    animationTimingFunction: 'linear',
+    animationIterationCount: 'infinite'
+  })
 )('div');
 
 export default Spinner;

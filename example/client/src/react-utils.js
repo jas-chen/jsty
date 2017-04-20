@@ -1,15 +1,11 @@
 import React, { PropTypes, Children } from 'react';
-import { style as createStyle } from 'jsty';
 
-// property name in context
-const CSS = 'css';
-
-const contextPropTypes = { [CSS]: PropTypes.func };
+const contextPropTypes = { insertStyle: PropTypes.func };
 const styledCompPropTypes = { className: PropTypes.string };
 
 export class Provider extends React.Component {
   getChildContext() {
-    return { [CSS]: this.props.css }
+    return { insertStyle: this.props.insertStyle }
   }
 
   render() {
@@ -22,7 +18,7 @@ Provider.childContextTypes = contextPropTypes;
 
 
 export function styled() {
-  const decls = createStyle.apply(null, arguments);
+  const style = Array.prototype.concat.apply([], arguments);
 
   return function attachStyle(Component) {
     class StyledComponent extends React.PureComponent {
@@ -30,8 +26,8 @@ export function styled() {
         const { className, ...restProps } = this.props;
 
         return className
-          ? <Component className={`${this.context[CSS](decls)} ${className}`} {...restProps} />
-          : <Component className={this.context[CSS](decls)} {...restProps} />;
+          ? <Component className={`${this.context.insertStyle(style)} ${className}`} {...restProps} />
+          : <Component className={this.context.insertStyle(style)} {...restProps} />;
       }
     }
 

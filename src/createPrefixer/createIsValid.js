@@ -1,8 +1,7 @@
-import toCamelProp from './toCamelProp';
-import createStyleTag from './createStyleTag';
+import createStyleElement from '../utils/createStyleElement';
 
 function createTestSheet() {
-  const styleTag = createStyleTag();
+  const styleTag = createStyleElement('(max-width: 1px)');
   if (process.env.NODE_ENV !== 'production') {
     styleTag.setAttribute('id', 'jsty-test');
   }
@@ -14,32 +13,36 @@ export default function createIsValid() {
   const { style } = document.createElement('div');
   const testSheet = createTestSheet();
 
-  function isValidProp(prop) {
-    if (prop.indexOf('-') !== -1) {
-      prop = toCamelProp(prop);
+  const supports = (('CSS' in window) && ('supports' in window.CSS))
+    ? window.CSS.supports
+    : (prop, value) => {
+      style.cssText = `${prop}:${value}`;
+      return !!style.length;
     }
 
-    return prop in style;
-  }
+  const isValidProp = prop => prop in style;
 
-  function isValidRule(prop, value) {
+  function isValidDeclaration(prop, value) {
     if (process.env.NODE_ENV !== 'production') {
       if (arguments.length !== 2) {
         throw new TypeError(`Expected 2 arguments passed into \`isValidValue()\`.`);
       }
+
+      if ((/[A-Z]/).test(prop)) {
+        throw new Error(`Expected prop to be dash-case: \`${prop}\`.`);
+      }
     }
 
-    style.cssText = `${prop}:${value}`;
-    return !!style.length;
+    return supports(prop, value);
   }
 
   function isValidSelector(sel) {
     try {
-      testSheet.insertRule(`.test${sel}{color:#fff;}`, 0);
+      testSheet.insertRule(`.jsty${sel}{color:#fff;}`, 0);
       // a hack to deal with Edge browser.
       const { selectorText } = testSheet.cssRules.item(0);
       testSheet.deleteRule(0); // reset
-      return selectorText.substring(5 /* skip `.test` */);
+      return selectorText.substring(5); // remove `.jsty`
     } catch(e) {
       return false;
     }
@@ -47,7 +50,7 @@ export default function createIsValid() {
 
   return {
     prop: isValidProp,
-    rule: isValidRule,
+    decl: isValidDeclaration,
     sel: isValidSelector
   };
 }
