@@ -1,27 +1,39 @@
-export default function createServerSheet(opts = {}) {
-  const {
-    styleSheets = {}
-  } = opts;
-
-  function insertAtRule(rule) {
-    if (styleSheets.hasOwnProperty('all')) {
-      styleSheets['all'] = `${rule}${styleSheets['all']}`;
-    } else {
-      styleSheets['all'] = rule;
-    }
+export default function createServerSheet(mediaQueries = ['all']) {
+  if (mediaQueries[0] !== 'all') {
+    throw new Error(`Expected the first item of \`mediaQueries\` to be \`all\`.`);
   }
 
-  function insertRule(media, sel, rule) {
-    if (styleSheets.hasOwnProperty(media)) {
-      styleSheets[media] += `${sel}{${rule}}`;
-    } else {
-      styleSheets[media] = `${sel}{${rule}}`;
+  const styleTags = {};
+
+  mediaQueries.forEach(media => {
+    if (typeof media !== 'string') {
+      throw new Error(`Expected media to be string.`);
     }
+
+    styleTags[media] = '';
+  });
+
+  function insertAtRule(rule) {
+    styleTags['all'] = rule + styleTags['all'];
+    return true;
+  }
+
+  function insertRule(rule, media = 'all') {
+    styleTags[media] = styleTags[media] + rule;
+    return true;
+  }
+
+  function getStyleTags(className = 'jsty-style') {
+    return mediaQueries
+      .map(media => {
+        return `<style class="${className}" media="${media}">${styleTags[media]}</style>`;
+      })
+      .join('');
   }
 
   return {
     insertAtRule,
     insertRule,
-    styleSheets
+    getStyleTags
   };
 }
