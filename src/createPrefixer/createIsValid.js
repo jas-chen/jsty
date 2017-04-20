@@ -3,7 +3,7 @@ import createStyleElement from '../utils/createStyleElement';
 function createTestSheet() {
   const styleTag = createStyleElement('(max-width: 1px)');
   if (process.env.NODE_ENV !== 'production') {
-    styleTag.setAttribute('id', 'jsty-test');
+    styleTag.setAttribute('class', 'jsty-test');
   }
 
   return styleTag.sheet;

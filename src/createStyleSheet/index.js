@@ -7,12 +7,12 @@ export default function createStyleSheet(mediaQueries = ['all']) {
 
   const styleElements = {};
 
-  mediaQueries.forEach(query => {
-    if (typeof query !== 'string') {
-      throw new Error(`Expected query to be string.`);
+  mediaQueries.forEach(media => {
+    if (typeof media !== 'string') {
+      throw new Error(`Expected media to be string.`);
     }
 
-    styleElements[query] = createStyleElement(query);
+    styleElements[media] = createStyleElement(media);
   });
 
   function insertAtRule(rule) {
