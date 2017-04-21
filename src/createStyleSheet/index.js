@@ -24,7 +24,7 @@ export default function createStyleSheet(mediaQueries = ['all']) {
     }
   }
 
-  function insertRule(rule, media) {
+  function insertStyleRule(rule, media) {
     const { sheet } = styleElements[media || 'all'];
 
     try {
@@ -37,6 +37,6 @@ export default function createStyleSheet(mediaQueries = ['all']) {
 
   return {
     insertAtRule,
-    insertRule
+    insertStyleRule
   };
 }

@@ -18,7 +18,7 @@ export default function createServerSheet(mediaQueries = ['all']) {
     return true;
   }
 
-  function insertRule(rule, media = 'all') {
+  function insertStyleRule(rule, media = 'all') {
     styleTags[media] = styleTags[media] + rule;
     return true;
   }
@@ -33,7 +33,7 @@ export default function createServerSheet(mediaQueries = ['all']) {
 
   return {
     insertAtRule,
-    insertRule,
+    insertStyleRule,
     getStyleTags
   };
 }

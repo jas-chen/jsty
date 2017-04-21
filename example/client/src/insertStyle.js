@@ -28,14 +28,14 @@ export default createInsertStyle({
       const prefixedDecl = prefixer.prefixDecl(prop, value);
 
       if (prefixedDecl) {
-        if (styleSheet.insertRule(`${sel}{${prefixedDecl}}`, media)) {
+        if (styleSheet.insertStyleRule(`${sel}{${prefixedDecl}}`, media)) {
           return;
         }
 
         // try to insert the rule with prefixed selector
         const prefixedSel = prefixer.prefixSel(sel);
 
-        if (prefixedSel && styleSheet.insertRule(`${prefixedSel}{${prefixedDecl}}`, media)) {
+        if (prefixedSel && styleSheet.insertStyleRule(`${prefixedSel}{${prefixedDecl}}`, media)) {
           return;
         }
       }
