@@ -3,11 +3,14 @@
   "version": "0.6.1",
   "main": "lib",
   "module": "es/index.js",
+  "typings": "./index.d.ts",
   "files": [
     "lib",
     "es",
     "dist",
-    "src"
+    "src",
+    "types.ts",
+    "index.d.ts"
   ],
   "scripts": {
     "clean": "rm -rf lib es dist",
