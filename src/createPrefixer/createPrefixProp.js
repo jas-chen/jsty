@@ -2,9 +2,7 @@ import toCamelProp from '../utils/toCamelProp';
 import toDashProp from '../utils/toDashProp';
 
 export default function createPrefixProp(isValidProp, prefixes, propCache = {}) {
-  return function prefixerProp(prop) {
-    let dashProp;
-
+  return function prefixerProp(prop, dashProp) {
     if (prop.indexOf('-') !== -1) {
       dashProp = prop;
       prop = toCamelProp(prop);

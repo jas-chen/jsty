@@ -15,7 +15,7 @@ export default function createIsValid() {
 
   const supports = (('CSS' in window) && ('supports' in window.CSS))
     ? window.CSS.supports
-    : (prop, value) => {
+    : function supports(prop, value) {
       style.cssText = `${prop}:${value}`;
       return !!style.length;
     }
@@ -24,10 +24,6 @@ export default function createIsValid() {
 
   function isValidDeclaration(prop, value) {
     if (process.env.NODE_ENV !== 'production') {
-      if (arguments.length !== 2) {
-        throw new TypeError(`Expected 2 arguments passed into \`isValidValue()\`.`);
-      }
-
       if ((/[A-Z]/).test(prop)) {
         throw new Error(`Expected prop to be dash-case: \`${prop}\`.`);
       }
