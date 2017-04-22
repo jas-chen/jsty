@@ -17,7 +17,7 @@
 - Inserts only critical styles into stylesheet (both server side and client side)
 - No JavaScript object parsing
 - No JavaScript object hashing
-- _Adaptive_ CSS prefixer that detects browser CSS support and then prefixs styles lazily and properly. It prefixes not only CSS properties and values but also CSS pseudo-classes or pseudo-elements such as `:fullscreen`, `::placeholder`
+- _Adaptive_ CSS prefixer that detects browser CSS support and then prefixs styles lazily and properly. It prefixes not only CSS properties and values but also CSS pseudo-classes/elements such as `:fullscreen`, `::placeholder`
 - Class names and prefix results are cached
 - Flexibility. Don't need the prefixer? You can remove it or replace it with your own choice
 
@@ -30,7 +30,7 @@ yarn add jsty
 
 ## Browser Support
 IE >= 9
-> Built-in prefixer will not prefix old flexbox syntax.
+> Old flexbox syntax is not supported by the built-in prefixer.
 
 
 ## Inspirations
