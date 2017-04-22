@@ -1,12 +1,10 @@
 import createCache from './createCache';
 
-export default function createInsertStyle(opts = {}) {
-  const {
-    serverStyles,
-    onAtRule,
-    onStyleRule
-  } = opts;
-
+export default function createInsertStyle({
+  serverStyles,
+  onAtRule,
+  onStyleRule
+}) {
   const cache = createCache(serverStyles);
 
   function insert(decl) {
@@ -40,10 +38,10 @@ export default function createInsertStyle(opts = {}) {
   }
 
   return function insertStyle(decls) {
-    if (Array.isArray(decls)) {
-      return decls.map(insert).join(' ');
-    } else {
-      return insert(decls);
+    if (decls.hasOwnProperty('className')) {
+      return decls.className;
     }
+
+    return decls.className = decls.map(insert).join(' ');
   }
 }

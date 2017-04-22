@@ -26,7 +26,11 @@ export default function createPrefixValue(isValidDecl, prefixProp, prefixes, val
       return valueCache[key];
     }
 
-    if ((/transition(?:-property)?$/).test(value)) {
+    if (isValidDecl(prop, value)) {
+      return valueCache[key] = value;
+    }
+
+    if ((/transition(?:-property)?$/).test(prop)) {
       if (value.indexOf(',') !== -1) {
         // only split multi values, not cubic beziers
         const values = value.split(/,(?![^()]*(?:\([^()]*\))?\))/g);
@@ -36,7 +40,7 @@ export default function createPrefixValue(isValidDecl, prefixProp, prefixes, val
           const prefixedValue = prefixTransitionValue(values[i].trim());
 
           if (!prefixedValue) {
-            valueCache[key] = null;
+            valueCache[key] = void(0);
             return;
           }
 
@@ -60,6 +64,6 @@ export default function createPrefixValue(isValidDecl, prefixProp, prefixes, val
       }
     }
 
-    valueCache[key] = null;
+    valueCache[key] = void(0);
   };
 }

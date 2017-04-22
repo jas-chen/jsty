@@ -18,7 +18,6 @@ export default function createCache(cache = {}) {
   function isAtRuleInserted(type, name) {
     let entry = cache[type];
     if (!entry) {
-      entry = cache[type] = {};
       return false;
     }
 

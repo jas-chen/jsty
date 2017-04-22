@@ -1,7 +1,10 @@
 export default function createPrefixSel(isValidSelector, isFirefox, prefixes, selCache = {}) {
   const placeholder = '::placeholder';
   const placeholderRegex = /::placeholder/g;
+  const selection = '::selection';
+  const selectionRegex = /::selection/g;
   const fullscreen = ':fullscreen';
+  const fullscreenRegex = /:fullscreen/g;
 
   return function prefixSel(sel) {
     // ::placeholder
@@ -9,10 +12,13 @@ export default function createPrefixSel(isValidSelector, isFirefox, prefixes, se
       if (selCache.hasOwnProperty(placeholder)) {
         const prefixedSel = selCache[placeholder];
         if (prefixedSel) {
-          sel = sel.replace(placeholderRegex, selCache[prefixedSel]);
+          sel = sel.replace(placeholderRegex, prefixedSel);
         } else {
           return;
         }
+      } else if (isValidSelector(placeholder)) {
+        sel = sel.replace(placeholderRegex, placeholder);
+        selCache[placeholder] = placeholder;
       } else {
         for (let i = 0 ; i < prefixes.length ; i += 1) {
           const prefix = prefixes[i];
@@ -40,38 +46,60 @@ export default function createPrefixSel(isValidSelector, isFirefox, prefixes, se
         }
 
         if (!selCache.hasOwnProperty(placeholder)) {
-          selCache[placeholder] = null;
+          selCache[placeholder] = void(0);
           return;
         }
       }
     }
 
     // ::selection
-    if (sel.indexOf('::selection') !== -1 && isFirefox) {
-      sel = sel.replace(/::selection/g, '::-moz-selection');
+    if (sel.indexOf(selection) !== -1) {
+      if (selCache.hasOwnProperty(selection)) {
+        const prefixedSel = selCache[selection];
+        if (prefixedSel) {
+          sel = sel.replace(selectionRegex, prefixedSel);
+        } else {
+          return;
+        }
+      } else {
+        if (isValidSelector(selection)) {
+          sel = sel.replace(selectionRegex, selection);
+          selCache[selection] = selection;
+        } else if (isFirefox && isValidSelector('::-moz-selection')) {
+          sel = sel.replace(selectionRegex, '::-moz-selection');
+          selCache[selection] = '::-moz-selection';
+        } else {
+          selCache[selection] = void(0);
+          return;
+        }
+      }
     }
 
     // :full-screen
     if (sel.indexOf(fullscreen) !== -1) {
       if (selCache.hasOwnProperty(fullscreen)) {
-        const prefixedSel = selCache[placeholder];
+        const prefixedSel = selCache[fullscreen];
         if (prefixedSel) {
-          sel = sel.replace(placeholderRegex, selCache[prefixedSel]);
+          sel = sel.replace(fullscreenRegex, prefixedSel);
         } else {
           return;
         }
+      } else if (isValidSelector(fullscreen)) {
+        sel = sel.replace(fullscreenRegex, fullscreen);
+        selCache[fullscreen] = fullscreen;
       } else {
         for (let i = 0 ; i < prefixes.length ; i += 1) {
-          const prefixedFullscreen = `:-${prefixes[i].toLowerCase()}-full-screen`;
+          const prefix = prefixes[i];
+          const prefixedFullscreen = prefix === 'ms' ? ':-ms-fullscreen' : `:-${prefix.toLowerCase()}-full-screen`;
           if (isValidSelector(prefixedFullscreen)) {
-            sel = sel.replace(/:fullscreen/g, prefixedFullscreen);
+            sel = sel.replace(fullscreenRegex, prefixedFullscreen);
             selCache[fullscreen] = prefixedFullscreen;
             break;
           }
         }
 
         if (!selCache.hasOwnProperty(fullscreen)) {
-          selCache[fullscreen] = null;
+          selCache[fullscreen] = void(0);
           return;
         }
       }

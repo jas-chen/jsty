@@ -5,7 +5,7 @@ function assignSel(decl, sel) {
   if (!decl.sel) {
     decl.sel = sel;
   } else {
-    decl.sel = decl.sel.replace(/&/g, sel);
+    decl.sel = sel + decl.sel;
   }
 }
 

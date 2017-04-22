@@ -13,7 +13,7 @@ export default function createPrefixDecl(isValidDecl, isValidProp, prefixes) {
       return `${dashProp}:${value}`;
     }
 
-    if ((prop = prefixProp(prop, dashProp) && (value = prefixValue(prop, value)))) {
+    if ((prop = prefixProp(prop, dashProp)) && (value = prefixValue(prop, value))) {
       return `${prop}:${value}`;
     }
   }

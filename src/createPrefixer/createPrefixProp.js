@@ -13,14 +13,10 @@ export default function createPrefixProp(isValidProp, prefixes, propCache = {}) 
     }
 
     if (isValidProp(prop)) {
-      return propCache[prop] = dashProp || toDashProp(prop);
+      return propCache[prop] = (dashProp || toDashProp(prop));
     }
 
-    if ((/^(ms[A-Z]|[A-Z]|-)/).test(prop)) { // already prefixed
-      if (isValidProp(prop)) {
-        return propCache[prop] = dashProp || toDashProp(prop);
-      }
-    } else {
+    if (!(/^(ms[A-Z]|[A-Z])/).test(prop)) { // not prefixed
       const part = prop.charAt(0).toUpperCase() + prop.substr(1);
 
       for (let i = 0 ; i < prefixes.length ; i += 1) {
@@ -31,6 +27,6 @@ export default function createPrefixProp(isValidProp, prefixes, propCache = {}) 
       }
     }
 
-    propCache[prop] = null;
+    propCache[prop] = void(0);
   }
 }
