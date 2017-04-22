@@ -12,4 +12,8 @@ describe('media', () => {
       { media: '(max-width:400px)', prop: 'marginTop', value: '10px' }
     ]);
   });
+
+  test('stores media query as property', () => {
+    expect(media('(max-width:400px)').query).toEqual('(max-width:400px)');
+  });
 });
