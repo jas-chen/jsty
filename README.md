@@ -5,4 +5,4 @@
 ![Dependencies](https://david-dm.org/jas-chen/jsty.svg)
 
 [![Build Status](https://travis-ci.org/jas-chen/jsty.svg)](https://travis-ci.org/jas-chen/jsty)
-[![Test Coverage](https://codeclimate.com/github/jas-chen/jsty/badges/coverage.svg)](https://codeclimate.com/github/jas-chen/jsty/coverage)
+[![Coverage Status](https://coveralls.io/repos/github/jas-chen/jsty/badge.svg?branch=master)](https://coveralls.io/github/jas-chen/jsty?branch=master)
