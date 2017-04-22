@@ -1,6 +1,6 @@
 {
   "name": "jsty",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "main": "lib",
   "module": "es/index.js",
   "typings": "./index.d.ts",
