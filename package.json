@@ -1,5 +1,6 @@
 {
   "name": "jsty",
+  "description": "Fast and tiny CSS in JS library",
   "version": "0.8.0",
   "main": "lib",
   "module": "es/index.js",
@@ -28,7 +29,8 @@
   "author": "Jas Chen",
   "license": "MIT",
   "keywords": [
-    "css-in-js"
+    "css-in-js",
+    "style"
   ],
   "bugs": {
     "url": "https://github.com/jas-chen/jsty/issues"
