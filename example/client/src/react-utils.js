@@ -1,11 +1,13 @@
-import React, { PropTypes, Children } from 'react';
+import React, { Children } from 'react';
+import PropTypes from 'prop-types';
 
-const contextPropTypes = { insertStyle: PropTypes.func };
+const contextPropTypes = { dispatch: PropTypes.func.isRequired };
 const styledCompPropTypes = { className: PropTypes.string };
 
 export class Provider extends React.Component {
   getChildContext() {
-    return { insertStyle: this.props.insertStyle }
+    // compatible with react-redux API so that you can replace it with <Provider> from react-redux
+    return { dispatch: this.props.insertStyle }
   }
 
   render() {
@@ -13,24 +15,26 @@ export class Provider extends React.Component {
   }
 }
 
-Provider.propTypes = contextPropTypes;
+Provider.propTypes = { insertStyle: PropTypes.func.isRequired };
 Provider.childContextTypes = contextPropTypes;
 
 
 export function styled() {
-  const style = Array.prototype.concat.apply([], arguments);
+  const style = arguments.length > 1 ? Array.prototype.concat.apply([], arguments) : arguments[0];
 
   return function attachStyle(Component) {
     class StyledComponent extends React.PureComponent {
       render() {
-        const { className, ...restProps } = this.props;
+        const { props } = this;
+        const className = props.hasOwnProperty('className')
+          ? `${this.context.dispatch(style)} ${props.className}`
+          : this.context.dispatch(style);
 
-        return className
-          ? <Component className={`${this.context.insertStyle(style)} ${className}`} {...restProps} />
-          : <Component className={this.context.insertStyle(style)} {...restProps} />;
+        return React.createElement(Component, Object.assign({}, props, { className }));
       }
     }
 
+    StyledComponent.displayName = 'Styled';
     StyledComponent.propTypes = styledCompPropTypes;
     StyledComponent.contextTypes = contextPropTypes;
     return StyledComponent;

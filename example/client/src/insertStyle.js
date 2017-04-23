@@ -1,10 +1,11 @@
 import { createInsertStyle, createStyleSheet, createPrefixer } from 'jsty';
 import { phone, pad } from './mediaQuery';
 
+// config style element order
 const styleSheet = createStyleSheet([
   'all',
-  phone.query,
-  pad.query
+  pad.query,
+  phone.query
 ]);
 
 const prefixer = createPrefixer();
@@ -12,8 +13,8 @@ const prefixer = createPrefixer();
 export default createInsertStyle({
     onAtRule: rule => {
       if (!styleSheet.insertAtRule(rule)) {
+        // prefix @keyframes and try again
         if (rule.indexOf('@keyframes') === 0) {
-          // prefix @keyframes
           if (styleSheet.insertAtRule('@-webkit-' + rule.substr(1))) {
             return; // success
           }
@@ -29,14 +30,14 @@ export default createInsertStyle({
 
       if (prefixedDecl) {
         if (styleSheet.insertStyleRule(`${sel}{${prefixedDecl}}`, media)) {
-          return;
+          return; // success
         }
 
-        // try to insert the rule with prefixed selector
+        // prefix selector and try again
         const prefixedSel = prefixer.prefixSel(sel);
 
         if (prefixedSel && styleSheet.insertStyleRule(`${prefixedSel}{${prefixedDecl}}`, media)) {
-          return;
+          return; // success
         }
       }
 
