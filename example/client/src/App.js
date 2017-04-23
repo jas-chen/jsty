@@ -31,7 +31,7 @@ const Button = styled(
       cursor: 'grab' // prefixer test
     })
   ),
-  d(':typo')(
+  d(':active')(
     d({
       cursor: 'grabbing' // prefixer test
     })
