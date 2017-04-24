@@ -34,7 +34,7 @@
 yarn add jsty
 ```
 
-## [Get Started](https://jas-chen.github.io/)
+## [Get Started](https://jas-chen.github.io/jsty/)
 
 ## Browser Support
 IE >= 9
