@@ -12,7 +12,6 @@
 - Framework agnostic
 - Universal rendering
 - No custom AST transform or module loader needed
-- Code completion via TypeScript declaration files
 - Atomic style CSS
 - Inserts only critical styles into stylesheet (both server side and client side)
 - No JavaScript object parsing
@@ -20,6 +19,15 @@
 - _Adaptive_ CSS prefixer that detects browser CSS support and then prefixs styles lazily and properly. It prefixes not only CSS properties and values but also CSS pseudo-classes/elements such as `:fullscreen`, `::placeholder`
 - Class names and prefix results are cached
 - Flexibility. Don't need the prefixer? You can remove it or replace it with your own choice
+
+
+## Development Experience
+
+#### Code completion (via TypeScript declaration files)
+![Code completion](https://jas-chen.github.io/jsty/img/auto-completion.gif)
+
+#### CSS Hints
+![Console warning](https://jas-chen.github.io/jsty/img/console-warning.png)
 
 ## Installation
 ```
