@@ -24,7 +24,9 @@
     "build": "yarn run clean && yarn run build:commonjs && yarn run build:es && yarn run build:dist",
     "build:dev": "rm -rf lib && BABEL_ENV=test babel src -d lib",
     "prepublish": "yarn run build",
-    "doc": "typedoc --name Jsty --out ./docs/ --mode modules --module commonjs --includeDeclarations --excludeExternals \"src/index.d.ts\" ./src"
+    "predoc": "cp src/index.d.ts src/index.ts && mkdir img && cp docs/img/* img && rm -rf docs",
+    "doc": "typedoc --name Jsty --out ./docs/ --mode modules --module commonjs ./src",
+    "postdoc": "rm src/index.ts && mkdir docs/img && cp img/* docs/img && rm -rf img"
   },
   "repository": "https://github.com/jas-chen/jsty.git",
   "author": "Jas Chen",

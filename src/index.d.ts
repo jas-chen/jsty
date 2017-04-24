@@ -1,10 +1,25 @@
 import { CSSProperties } from './types';
 
 interface CSSDeclaration {
+  /**
+   * CSS media query
+   */
   media?: string,
+
+  /**
+   * CSS selector
+   */
   sel?: string,
-  prop?: string,
-  value?: string | object
+
+  /**
+   * CSS property
+   */
+  prop: string,
+
+  /**
+   * CSS value
+   */
+  value: string | object
 }
 
 type CSSDeclarations = CSSDeclaration[];
