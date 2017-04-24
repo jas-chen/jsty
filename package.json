@@ -24,7 +24,7 @@
     "build": "yarn run clean && yarn run build:commonjs && yarn run build:es && yarn run build:dist",
     "build:dev": "rm -rf lib && BABEL_ENV=test babel src -d lib",
     "prepublish": "yarn run build",
-    "doc": "typedoc --name Jsty --out ./doc/ --module commonjs --includeDeclarations --excludeExternals \"src/index.d.ts\" ./src"
+    "doc": "typedoc --name Jsty --out ./docs/ --module commonjs --includeDeclarations --excludeExternals \"src/index.d.ts\" ./src"
   },
   "repository": "https://github.com/jas-chen/jsty.git",
   "author": "Jas Chen",
