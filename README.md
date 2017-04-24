@@ -1,4 +1,4 @@
-# jsty
+# Jsty
 > Fast and tiny CSS in JS library
 
 [![npm](https://img.shields.io/npm/v/jsty.svg)](https://www.npmjs.com/package/jsty)
