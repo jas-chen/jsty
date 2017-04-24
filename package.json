@@ -4,7 +4,7 @@
   "version": "0.8.0",
   "main": "lib",
   "module": "es/index.js",
-  "typings": "./index.d.ts",
+  "typings": "./src/index.d.ts",
   "files": [
     "lib",
     "es",
@@ -23,7 +23,8 @@
     "postbuild:dist": "gzip -c dist/jsty.min.js | wc -c",
     "build": "yarn run clean && yarn run build:commonjs && yarn run build:es && yarn run build:dist",
     "build:dev": "rm -rf lib && BABEL_ENV=test babel src -d lib",
-    "prepublish": "yarn run build"
+    "prepublish": "yarn run build",
+    "doc": "typedoc --name Jsty --out ./doc/ --module commonjs --includeDeclarations --excludeExternals \"src/index.d.ts\" ./src"
   },
   "repository": "https://github.com/jas-chen/jsty.git",
   "author": "Jas Chen",
@@ -46,7 +47,8 @@
     "rollup": "^0.41.6",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-replace": "^1.1.1",
-    "rollup-plugin-uglify": "^1.0.1"
+    "rollup-plugin-uglify": "^1.0.1",
+    "typedoc": "^0.5.10"
   },
   "jest": {
     "collectCoverageFrom": [
