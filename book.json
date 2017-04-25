@@ -1,0 +1,10 @@
+{
+  "gitbook": "3.2.2",
+  "title": "Jsty",
+  "plugins": ["github"],
+  "pluginsConfig": {
+    "github": {
+      "url": "https://github.com/jas-chen/jsty/"
+    }
+  }
+}
