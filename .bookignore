@@ -1,0 +1,11 @@
+__test__
+example
+src
+docs/api
+docs/img
+docs/.nojekyll
+docs/README.md
+LICENSE
+package.json
+*.js
+yarn.lock
