@@ -1,6 +1,6 @@
 import { CSSProperties } from './types';
 
-interface CSSDeclaration {
+export interface CSSDeclaration {
   /**
    * CSS media query
    */
@@ -22,17 +22,17 @@ interface CSSDeclaration {
   value: string | object
 }
 
-type CSSDeclarations = CSSDeclaration[];
+export type CSSDeclarations = CSSDeclaration[];
 
 /**
  * Attach CSS selector to all CSS declarations. It will prepend the selector if one alreay existed.
  */
-type attachSelector = (...args: CSSDeclarations[]) => CSSDeclarations;
+export type attachSelector = (...args: CSSDeclarations[]) => CSSDeclarations;
 
 /**
  * Attach Media query to all CSS declarations.
  */
-type attachMediaQuery = (...args: CSSDeclarations[]) => CSSDeclarations;
+export type attachMediaQuery = (...args: CSSDeclarations[]) => CSSDeclarations;
 
 /**
  * Create CSS declarations.
@@ -72,18 +72,24 @@ declare class Keyframes {
     cssText(): string;
 }
 
+export type insertStyle = (decls: CSSDeclarations) => void;
+
 declare function createInsertStyle(opts: {
   serverStyles?: object,
   onAtRule: (rule: string) => void,
   onStyleRule: (mediaQuery: string, sel: string, prop: string, value: string) => void
-}): (decls: CSSDeclarations) => void;
+}): insertStyle;
 
-declare function createStyleSheet(mediaQueries: string[]): {
+export interface StyleSheet {
   insertAtRule: (rule: string) => boolean,
   insertStyleRule: (rule: string, mediaQuery: string) => boolean
-};
+}
 
-declare function createPrefixer(): {
+declare function createStyleSheet(mediaQueries: string[]): StyleSheet;
+
+export interface Prefixer {
   prefixDecl: (prop: string, value: string) => string | undefined,
   prefixSel: (sel: string) => string | undefined
 }
+
+declare function createPrefixer(): Prefixer;
