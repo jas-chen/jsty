@@ -27,7 +27,7 @@
     "pretypedoc": "mv src/index.d.ts src/Jsty.ts",
     "typedoc": "typedoc --name Jsty --readme none --out ./docs/api/ --mode modules --module commonjs ./src",
     "posttypedoc": "mv src/Jsty.ts src/index.d.ts",
-    "pregitbook": "rm docs/*.html docs/*.json",
+    "pregitbook": "rm docs/*.html docs/*.json && rm -rf docs/docs",
     "gitbook": "gitbook build",
     "postgitbook": "cp -r ./_book/* ./docs/ && rm -rf ./_book",
     "docs": "yarn run gitbook && yarn run typedoc"
