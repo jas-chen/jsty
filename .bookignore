@@ -1,6 +1,7 @@
 __test__
 example
 src
+typedoc-theme
 docs/api
 docs/img
 docs/.nojekyll
